@@ -35,6 +35,12 @@ def run_demo():
                         help='Convert to mel scale and back')
     parser.add_argument('--cutoff_freq', type=int, default=1000,
                         help='If filter is enable, the low-pass cutoff frequency in Hz')
+    parser.add_argument('--mel_bin_count', type=int, default=80,
+                        help='Dimension of mel scale')
+    parser.add_argument('--min_freq_hz', type=int, default=70,
+                        help='Minimal freq(Hz) of mel dim.')
+    parser.add_argument('--max_freq_hz', type=int, default=8000,
+                        help='Maximal freq(Hz) of mel dim.')
     args = parser.parse_args()
 
     in_file = args.in_file
@@ -79,9 +85,9 @@ def run_demo():
 
     # If the mel scale option is selected, apply a perceptual frequency scale.
     if args.enable_mel_scale:
-        min_freq_hz = 70
-        max_freq_hz = 8000
-        mel_bin_count = 200
+        min_freq_hz = args.min_freq_hz
+        max_freq_hz = args.max_freq_hz
+        mel_bin_count = args.mel_bin_count
 
         linear_bin_count = 1 + args.fft_size//2
         filterbank = audio_utilities.make_mel_filterbank(min_freq_hz, max_freq_hz, mel_bin_count,
@@ -147,7 +153,7 @@ def run_demo():
         x_reconstruct = x_reconstruct / max_sample
 
     # Save the reconstructed signal to a WAV file.
-    audio_utilities.save_audio_to_file(x_reconstruct, args.sample_rate_hz)
+    audio_utilities.save_audio_to_file(x_reconstruct, args.sample_rate_hz, 'out.wav')
 
     # Save the spectrogram image also.
     clf()
