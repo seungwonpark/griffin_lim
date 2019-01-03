@@ -77,7 +77,7 @@ def hz_to_fft_bin(f_hz, sample_rate_hz, fft_size):
     fft_size = float(fft_size)
     fft_bin = int(np.round((f_hz*2.0*fft_size/sample_rate_hz)))
     if fft_bin >= fft_size:
-        fft_bin = fft_size-1
+        fft_bin = int(fft_size-1)
     return fft_bin
 
 
