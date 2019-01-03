@@ -21,9 +21,9 @@ def run_demo():
         A plot of the spectrogram is also displayed.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--in_file', type=str, default="bkvhi.wav",
+    parser.add_argument('--in_file', type=str, default="bkvhi-16000.wav",
                         help='Input WAV file')
-    parser.add_argument('--sample_rate_hz', default=44100, type=int,
+    parser.add_argument('--sample_rate_hz', default=16000, type=int,
                         help='Sample rate in Hz')
     parser.add_argument('--fft_size', default=2048, type=int,
                         help='FFT siz')
